@@ -1,0 +1,43 @@
+.navbar-brand{    
+    margin: 15px !important;
+    padding: 13px !important;
+    font-size: 2em !important;
+    font-weight: bold !Important;
+    }
+    
+.navbar-toggle{margin-top:20px !important;}
+.dropdown-menu{background:#fff !important;}
+.navbar-login
+{
+    width: 350px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+
+h1{
+    text-align: center;
+}
+
+.blogShort{
+    border: solid rgb(131, 125, 125) 1px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.picture{
+    float: left !important;
+    height: 100px;
+    padding: 10px;
+}
