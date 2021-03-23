@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Blog{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/myblog.css') }}">
+    
+{% endblock %}
+
+{% block body %}
+{{ parent() }}
+    	{% for message in app.flashes('error_permisos') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <a class="btn btn-primary" href="{{ path('blogger') }}">Crear Nueva Entrada</a>
+
+    {% for blog in blog %}
+    	<div class="col-md-12 blogShort">
+             <h1>{{ blog.title }}</h1>
+             <div class="picture">
+               {% if blog.picture  is not null %}
+               <img width="100" src="{{ asset('uploads/bloggerfotos/') }}{{ blog.picture }}" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+               {% else %}
+               <img width="100" src="{{ asset('uploads/bloggerfotos/') }}noimagen.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+               {% endif %}
+             </div>
+             <div class="col-md-10"><p> {{ blog.text|split(' ', 5)|first  }}...</p></div>
+
+            <div class="col-md-12">
+               {% if blog.author  is not null %}
+                  <em>Autor:{{ blog.author }}</em>
+               {% else %}
+                  <em>Usuario:{{ blog.user.username }}</em>
+               {% endif %}
+            </div>
+             
+
+            <spam class="aling-left">{{ blog.date|date("m/d/Y h:m:s") }}</spam>
+            <div class="col-md-12">
+            <a class="btn btn-blog pull-right marginBottom10" href="{{ path('ver-blog', {id: blog.id}) }}">Leer más</a>
+
+            <a class="btn btn-blog pull-right marginBottom10" href="{{ path('editblogger', {id: blog.id}) }}">Edit</a>
+            </div>
+              
+         </div>
+    {% endfor %}
+    
+{% endblock %}

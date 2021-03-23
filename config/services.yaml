@@ -1,0 +1,45 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    bloggerfotos_directory: '%kernel.project_dir%/public/uploads/bloggerfotos'
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+knp_paginator:
+    page_range: 5                       # número de enlaces mostrados en el menú de paginación (por ejemplo: tiene 10 páginas, un rango de páginas de 3, en la quinta página verá enlaces a la página 4, 5, 6)
+    default_options:
+        page_name: page                 # nombre del parámetro de consulta de la página
+        sort_field_name: sort           # nombre del parámetro de consulta del campo de clasificación
+        sort_direction_name: direction  # dirección de clasificación nombre del parámetro de consulta
+        distinct: true                  # Asegurar resultados distintos, útil cuando las consultas ORM utilizan declaraciones GROUP BY
+        filter_field_name: filterField  # nombre del parámetro de consulta del campo de filtro
+        filter_value_name: filterValue  # nombre de parámetro de consulta de valor de filtro
+    template:
+        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'     # plantilla de controles de paginación deslizante
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # ordenar plantilla de enlace
+        filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # plantilla de filtros
