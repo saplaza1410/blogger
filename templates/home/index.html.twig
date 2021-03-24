@@ -6,7 +6,38 @@
 {{ parent() }}
 
    <h1>Home</h1>
+   <div class="col-md-12">
+      {% for blog in blog %}
+         <div class="col-md-3 flotar">
+               <h1 class="elementos-home-blog">{{ blog.title|length > 20 ? blog.title|slice(0, 20) ~ '...' : blog.title }}</h1>
+               <div class="elementos-home-blog">
+                  {% if blog.picture  is not null %}
+                  <img width="100" src="{{ asset('uploads/bloggerfotos/') }}{{ blog.picture }}" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                  {% else %}
+                  <img width="100" src="{{ asset('uploads/bloggerfotos/') }}noimagen.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                  {% endif %}
+               </div>
+               <br>
+               <div class="col-md-10 elementos-home-blog"><p> {{ blog.text|length > 50 ? blog.text|slice(0, 50) ~ '...' : blog.text  }}...</p></div>
 
+               <div class="col-md-12">
+                  {% if blog.author  is not null %}
+                     <em>Autor: {{ blog.author }}</em>
+                  {% else %}
+                     <em>Autor: {{ blog.author }}</em>
+                  {% endif %}
+               </div>
+               
+
+               <spam class="aling-left">{{ blog.date|date("m/d/Y h:m:s") }}</spam>
+               <div class="col-md-12">
+               <a class="btn btn-light pull-right" href="{{ path('ver-blog', {title: blog.title}) }}">Leer más</a>
+
+               </div>
+               
+            </div>
+      {% endfor %}
+   </div>
    <article><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></article>
 
     

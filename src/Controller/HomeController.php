@@ -17,12 +17,11 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-         
         $en = $this->getDoctrine()->getManager();
+        $blog = $en->getRepository(Blogger::class)->findBy(array(), array('id' => 'desc'), 4);
 
-        $blog = $en->getRepository(Blogger::class)->findBy(array(), array('id' => 'desc'));
         return $this->render('home/index.html.twig', [
-            'blog' => $blog,
+            'blog' => $blog
         ]);
     }
 
