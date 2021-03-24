@@ -19,14 +19,35 @@ class BloggerRepository extends ServiceEntityRepository
         parent::__construct($registry, Blogger::class);
     }
 
-    public function ListBlogger($num)
+    /**
+      * @return Blogger[] Returns an array of Blogger objects
+      */
+    public function ListBlogger()
     {
-        return $this->createQueryBuilder('b')
-        ->orderBy('b.id', 'ASC')
-        ->setMaxResults($num)
-        ->getQuery()
-        ->getResult();
+        
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT blog.id, blog.title, blog.author, blog.picture, blog.text, blog.date, user.username
+                From App:Blogger blog
+                JOIN blog.user user
+                ORDER BY blog.id DESC
+            ');
     }
+
+    /**
+      * @return Blogger[] Returns an array of Blogger objects
+      */
+      public function MyBlogs($user_id)
+      {
+          return $this->getEntityManager()
+              ->createQuery('
+                  SELECT blog.id, blog.title, blog.author, blog.picture, blog.text, blog.date, user.username
+                  From App:Blogger blog
+                  JOIN blog.user user
+                  WHERE user.id = ?1
+                  ORDER BY blog.id DESC
+              ')->setParameter(1, $user_id);
+      }
 
     // /**
     //  * @return Blogger[] Returns an array of Blogger objects

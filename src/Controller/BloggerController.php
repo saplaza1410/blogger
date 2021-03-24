@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Blogger;
 use App\Form\BloggerType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,14 +118,14 @@ class BloggerController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="ver-blog")
+     * @Route("/blog/{title}", name="ver-blog")
      */
-    public function blog($id): Response
+    public function blog($title): Response
     {
          
         $en = $this->getDoctrine()->getManager();
 
-        $blog = $en->getRepository(Blogger::class)->find($id);
+        $blog = $en->getRepository(Blogger::class)->findOneBy(["title" => $title]);
      
         return $this->render('blogger/blog.html.twig', [
             'blog' => $blog
@@ -134,13 +135,20 @@ class BloggerController extends AbstractController
     /**
      * @Route("/blogs", name="mis-blog")
      */
-    public function blogs(): Response
+    public function blogs(Request $request, PaginatorInterface $paginator): Response
     {
         $en = $this->getDoctrine()->getManager();
 
-        $blog = $en->getRepository(Blogger::class)->findBy(array(), array('id' => 'desc'));
-        return $this->render('blogger/misblog.html.twig', [
-            'blog' => $blog,
+        $query = $en->getRepository(Blogger::class)->ListBlogger();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+        return $this->render('blogger/blogs.html.twig', [
+            'blog' => $pagination,
         ]);
 
         
@@ -149,13 +157,19 @@ class BloggerController extends AbstractController
     /**
      * @Route("/entradas", name="mis-entradas")
      */
-    public function entradas(): Response
+    public function entradas(Request $request, PaginatorInterface $paginator): Response
     {
         $en = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $blog = $en->getRepository(Blogger::class)->findBy(["user"=>$user]);
-        return $this->render('blogger/misblog.html.twig', [
-            'blog' => $blog,
+        $user_id = $this->getUser()->getId();
+        $query = $en->getRepository(Blogger::class)->MyBlogs($user_id);
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+        return $this->render('blogger/blogs.html.twig', [
+            'blog' => $pagination,
         ]);
 
         

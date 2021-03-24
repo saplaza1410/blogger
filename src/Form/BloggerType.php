@@ -6,6 +6,8 @@ use App\Entity\Blogger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -15,9 +17,7 @@ class BloggerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            //->add('date')
-            //->add('Author')
+            ->add('title',TextType::class,['label' => 'Titulo'])
             ->add('picture', FileType::class, [
                 'label' => 'Seleccione una Imagen',
 
@@ -40,7 +40,7 @@ class BloggerType extends AbstractType
                     ])
                 ],
             ])
-            ->add('text')
+            ->add('text', TextareaType::class,['label' => 'Blog'])
             //->add('user')
             ->add('Guardar', SubmitType::class)
         ;

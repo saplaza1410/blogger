@@ -1,3 +1,7 @@
+body{
+    background: url(fondo.jpg);
+    color: #fff;
+}
 .navbar-brand{    
     margin: 15px !important;
     padding: 13px !important;
@@ -9,16 +13,19 @@
 .dropdown-menu{background:#fff !important;}
 .navbar-login
 {
-    width: 350px;
-    padding: 10px;
-    padding-bottom: 0px;
+    margin: 10px;
 }
 
-.navbar-login-session
-{
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+.dropdown-menu .nav-item .nav-link{
+    color: #212529 !important;
+}
+
+.dropdown-menu .nav-item .nav-link:hover{
+    color: #2c7ecf !important;
+}
+
+.bg-dark {
+    background: transparent !important;
 }
 
 .icon-size
@@ -40,4 +47,20 @@ h1{
     float: left !important;
     height: 100px;
     padding: 10px;
+}
+
+.div_btn-end{
+    text-align: end;
+    margin: 12px;
+}
+
+.flotar{
+    float: left;
+    border: solid #fff 1px;
+    border-radius: 10px;
+    height: 430px;
+}
+.elementos-home-blog{
+    height: 100px;
+    padding: 5px;
 }
