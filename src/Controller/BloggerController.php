@@ -70,12 +70,17 @@ class BloggerController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{title}", name="ver-blog")
+     * @Route("/blog/{slug}", name="ver-blog")
      */
-    public function blog(string $title): Response
+    public function blog(string $slug): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $blog = $em->getRepository(Blogger::class)->findOneBy(['title' => $title]);
+        $blog = $this->getDoctrine()
+            ->getRepository(Blogger::class)
+            ->findBySlug($slug);
+
+        if (!$blog) {
+            throw $this->createNotFoundException('Entrada no encontrada.');
+        }
 
         return $this->render('blogger/blog.html.twig', [
             'blog' => $blog,

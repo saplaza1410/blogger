@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Blogger
 {
     const ERROR_PERMISOS = "Este Blog no le pertenece";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,6 +24,11 @@ class Blogger
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="datetime")
@@ -67,7 +73,17 @@ class Blogger
     public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
+    }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
         return $this;
     }
 
@@ -79,7 +95,6 @@ class Blogger
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -91,7 +106,6 @@ class Blogger
     public function setAuthor(string $author): self
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -103,7 +117,6 @@ class Blogger
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
-
         return $this;
     }
 
@@ -115,22 +128,17 @@ class Blogger
     public function setText(string $text): self
     {
         $this->text = $text;
-
         return $this;
     }
 
-    public function getUser(): ? User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @return Collection|User[]
-     */
     public function setUser(User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 }
