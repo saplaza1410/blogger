@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Contacts;
+use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ContactService
@@ -14,7 +14,7 @@ class ContactService
         $this->em = $em;
     }
 
-    public function save(Contacts $contact): void
+    public function save(Contact $contact): void
     {
         $this->em->persist($contact);
         $this->em->flush();

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Contacts;
-use App\Form\ContactsType;
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Service\ContactService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +24,8 @@ class ContactsController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $contact = new Contacts();
-        $form = $this->createForm(ContactsType::class, $contact);
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

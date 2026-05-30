@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactsRepository;
+use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ContactsRepository::class)
+ * @ORM\Entity(repositoryClass=ContactRepository::class)
  */
-class Contacts
+class Contact
 {
     /**
      * @ORM\Id
@@ -45,7 +45,6 @@ class Contacts
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -57,7 +56,6 @@ class Contacts
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -69,7 +67,6 @@ class Contacts
     public function setMessage(string $message): self
     {
         $this->message = $message;
-
         return $this;
     }
 }
