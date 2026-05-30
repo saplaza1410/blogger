@@ -51,7 +51,7 @@ class Blogger
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="blogger")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;
 
