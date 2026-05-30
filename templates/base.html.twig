@@ -7,18 +7,12 @@
                 Blogger
             {% endblock %}
         </title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-            
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-                    
-            <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -32,7 +26,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.226 5.468 2.37A7 7 0 0 0 8 1z"/>
                             </svg>
                             <strong>{{ app.user.username }}</strong>
                             <span class="glyphicon glyphicon-chevron-down"></span>
@@ -58,28 +52,27 @@
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                      </li>
+                    </li>
                     {% endif %}
-                  </ul>
-                </nav>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse " id="navbarNav">
-                    <ul class="nav navbar-nav navbar-logo mx-auto">
-                      <li class="nav-item center">
-                        <a class="nav-link" href="{{ path('home') }}">Home</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{ path('mis-blog') }}">Blog</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contacts') }}">Contacto</a>
-                      </li>
                     </ul>
-                  </div>
-                  
+                </nav>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="nav navbar-nav navbar-logo mx-auto">
+                            <li class="nav-item center">
+                                <a class="nav-link" href="{{ path('home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('mis-blog') }}">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('contacts') }}">Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             {% endblock %}
         </div>
