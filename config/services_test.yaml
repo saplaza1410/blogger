@@ -1,0 +1,6 @@
+services:
+    # Override CurlHttpClient with NativeHttpClient in tests to avoid
+    # PHP 7.4 + curl 7.68.0 ARM incompatibility with CURLMOPT_PUSHFUNCTION cleanup
+    http_client:
+        class: Symfony\Component\HttpClient\NativeHttpClient
+        public: false
