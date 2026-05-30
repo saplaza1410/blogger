@@ -19,62 +19,29 @@ class BloggerRepository extends ServiceEntityRepository
         parent::__construct($registry, Blogger::class);
     }
 
-    /**
-      * @return Blogger[] Returns an array of Blogger objects
-      */
-    public function ListBlogger()
+    public function findAllOrderedByDate(): \Doctrine\ORM\Query
     {
-        
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT blog.id, blog.title, blog.author, blog.picture, blog.text, blog.date, user.username
-                From App:Blogger blog
-                JOIN blog.user user
-                ORDER BY blog.id DESC
-            ');
+        return $this->getEntityManager()->createQuery('
+            SELECT blog.id, blog.title, blog.slug, blog.author, blog.picture, blog.text, blog.date, user.username
+            FROM App:Blogger blog
+            JOIN blog.user user
+            ORDER BY blog.id DESC
+        ');
     }
 
-    /**
-      * @return Blogger[] Returns an array of Blogger objects
-      */
-      public function MyBlogs($user_id)
-      {
-          return $this->getEntityManager()
-              ->createQuery('
-                  SELECT blog.id, blog.title, blog.author, blog.picture, blog.text, blog.date, user.username
-                  From App:Blogger blog
-                  JOIN blog.user user
-                  WHERE user.id = ?1
-                  ORDER BY blog.id DESC
-              ')->setParameter(1, $user_id);
-      }
-
-    // /**
-    //  * @return Blogger[] Returns an array of Blogger objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUserId(int $userId): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->getEntityManager()->createQuery('
+            SELECT blog.id, blog.title, blog.slug, blog.author, blog.picture, blog.text, blog.date, user.username
+            FROM App:Blogger blog
+            JOIN blog.user user
+            WHERE user.id = :userId
+            ORDER BY blog.id DESC
+        ')->setParameter('userId', $userId);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Blogger
+    public function findBySlug(string $slug): ?Blogger
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findOneBy(['slug' => $slug]);
     }
-    */
 }

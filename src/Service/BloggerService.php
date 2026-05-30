@@ -39,6 +39,8 @@ class BloggerService
             $blog->setPicture($this->uploadPicture($picture));
         }
 
+        $slug = (string) $this->slugger->slug($blog->getTitle())->lower();
+        $blog->setSlug($slug);
         $blog->setAuthor($user->getUsername());
         $blog->setUser($user);
 
@@ -58,14 +60,14 @@ class BloggerService
 
     public function getPaginatedPosts(int $page): object
     {
-        $query = $this->bloggerRepository->ListBlogger();
+        $query = $this->bloggerRepository->findAllOrderedByDate();
 
         return $this->paginator->paginate($query, $page, 10);
     }
 
     public function getUserPosts(int $userId, int $page): object
     {
-        $query = $this->bloggerRepository->MyBlogs($userId);
+        $query = $this->bloggerRepository->findByUserId($userId);
 
         return $this->paginator->paginate($query, $page, 10);
     }
